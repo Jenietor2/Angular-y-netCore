@@ -1,0 +1,21 @@
+<div class="container">
+  <table class="table">
+    <thead class="thead-dark">
+      <tr>
+        <th *ngFor="let cabecera of cabeceras" scope="col">{{cabecera}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let producto of productos">
+        <td>{{producto.idProducto}}</td>
+        <td>{{producto.nombre}}</td>
+        <td>{{producto.precio}}</td>
+        <td>{{producto.stock}}</td>
+        <td>{{producto.nombreCategoria}}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+
+

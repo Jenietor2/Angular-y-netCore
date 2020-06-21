@@ -1,0 +1,21 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-10">
+      <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th *ngFor="let cabecera of encabezados">{{cabecera}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let usuario of usuarios">
+            <td>{{usuario.idUsuario}}</td>
+            <td>{{usuario.nombreUsuario}}</td>
+            <td>{{usuario.nombrePersona}}</td>
+            <td>{{usuario.tipoUsuario}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

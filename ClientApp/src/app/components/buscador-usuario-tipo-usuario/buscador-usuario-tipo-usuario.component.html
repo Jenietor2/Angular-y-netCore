@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3 form-group form-inline">
+      <label>Ingrese nombre</label>
+      <select #tipo (change)="filtrar(tipo)">
+        <option value="">--Seleccione--</option>
+        <option *ngFor="let tipo of tipoUsuario" [value]="tipo.idTipoUsuario">{{tipo.nombre}}</option>
+      </select>
+    </div>
+  </div>
+
+</div>

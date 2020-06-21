@@ -1,0 +1,6 @@
+
+ <label>Ingrese nombre</label>
+<input type="text" #nombre/>
+<input type="button" (click)="filtrar(nombre.value)" class="btn-primary btn-primary" value="Buscar" />
+<input type="button" (click)="limpiar(nombre)" class="btn-primary btn-danger" value="Limpiar" />
+
