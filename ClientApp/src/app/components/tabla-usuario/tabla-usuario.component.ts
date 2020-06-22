@@ -9,6 +9,7 @@ import { UsuarioService } from '../../Servicios/usuario.service';
 export class TablaUsuarioComponent implements OnInit {
   @Input() usuarios: any;
   encabezados: string[] = ["Id", "Usuario", "Nombre", "Tipo de usuario"];
+  @Input() opciones = false;
   constructor(private usuarioServices: UsuarioService) { }
 
   ngOnInit() {

@@ -26,6 +26,9 @@
         <div class="form-group">
           <label>Correo electronico</label>
           <input type="text" class="form-control" formControlName="correo" />
+          <div class="text-danger" *ngIf="persona.controls['correo'].errors?.exist">
+            <p>Este correo electronico ya existe</p>
+          </div>
         </div>
         <div class="form-group">
           <label>Fecha de nacimiento</label>

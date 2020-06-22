@@ -13,5 +13,9 @@ namespace Restaurante.Clases
         public string NombrePersona { get; set; }
         public int Habilitado { get; set; }
         public string TipoUsuario { get; set; }
+        public int IdTipoUsuario { get; set; }
+        public int IdPersona { get; set; }
+        public string password { get; set; }
+        public string passwordConfirm { get; set; }
     }
 }

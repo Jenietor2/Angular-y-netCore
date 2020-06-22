@@ -23,7 +23,7 @@ export class FormularioPersonaMantenimientoComponent implements OnInit {
         'primerApellido': new FormControl("", [Validators.required, Validators.maxLength(150)]),
         'segundoApellido': new FormControl("", [Validators.required, Validators.maxLength(150)]),
         'telefono': new FormControl("", [Validators.required, Validators.maxLength(10)]),
-        'correo': new FormControl("", [Validators.required, Validators.maxLength(100), Validators.pattern("^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$")]),
+        'correo': new FormControl("", [Validators.required, Validators.pattern("^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,4})$")], this.validarCorreo.bind(this)),
         'fechaNacimiento': new FormControl("", [Validators.required])
       }
     );
@@ -64,5 +64,20 @@ export class FormularioPersonaMantenimientoComponent implements OnInit {
       this.persona.controls["fechaNacimiento"].setValue(rsp["fechaNacimientoEditar"]);
     });
   }
-
+  //Validaciones personalizadas
+  //Es un metodo asincrono va como tercer parametro dentro del FormControl y si o si debe devolver una promesa
+  validarCorreo(control: FormControl) {
+      var promesa
+      return promesa = new Promise((resolve, reject) => {
+      if (control.value != "" && control.value != null) {
+        this.personaService.validarCorreo(this.persona.controls["idPersona"].value, this.persona.controls["correo"].value).subscribe(rsp => {
+          if (rsp > 0) {
+            resolve ({ exist: true });
+          } else {
+            resolve(null);
+          }
+        });
+      }
+      });
+  }
 }

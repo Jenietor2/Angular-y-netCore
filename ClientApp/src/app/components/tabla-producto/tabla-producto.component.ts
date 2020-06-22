@@ -10,6 +10,7 @@ export class TablaProductoComponent implements OnInit {
   @Input() productos: any;
   @Input() isMantenimiento = false;
   cabeceras: string[] = ["Id producto", "Nombre", "Precio", "Stock", "Categoria"];
+  p: number = 1;
   constructor(private productoServicio: ProductoServices) {
   }
 

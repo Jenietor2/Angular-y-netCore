@@ -22,4 +22,7 @@ export class PersonaService {
   eliminarPersona(idPersona) {
     return this.http.get(this.urlBase + "api/persona/EliminarPersona/" + idPersona);
   }
+  validarCorreo(idPersona: number, correo: string) {
+    return this.http.get(this.urlBase + "api/persona/ValidarEmail/" + idPersona + "/" + correo);
+  }
 }

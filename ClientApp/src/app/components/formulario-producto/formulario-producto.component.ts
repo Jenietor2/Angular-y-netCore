@@ -23,7 +23,7 @@ export class FormularioProductoComponent implements OnInit {
         'idProducto': new FormControl("0"),
         'nombre': new FormControl("", [Validators.required]),
         'precio': new FormControl("0", [Validators.required]),
-        'stock': new FormControl(""),
+        'stock': new FormControl("",[Validators.required, this.noPuntoDecimal]),
         'idMarca': new FormControl("", [Validators.required]),
         'idCategoria': new FormControl("", [Validators.required]),
       }
@@ -69,6 +69,13 @@ editarProducto(id) {
         this.router.navigate(['/productos']);
       });
     }
-    
+  }
+  //Validaciones personalizadas
+  noPuntoDecimal(control: FormControl) {
+    if ((<string>control.value.toString()).indexOf('.') > -1) {
+      return { puntoDecimal: true };
+    } else {
+      return null;
+    }
   }
 }

@@ -6,6 +6,7 @@ using System.Xml.Linq;
 using Restaurante.Clases;
 using Restaurante.Models;
 using Microsoft.AspNetCore.Mvc;
+using Remotion.Linq.Clauses.ResultOperators;
 
 namespace Restaurante.Controllers
 {
@@ -159,6 +160,19 @@ namespace Restaurante.Controllers
                     return BadRequest();
                 }
                 
+            }
+        }
+        [HttpGet("ValidarEmail/{idPersona}/{correo}")]
+        public int ValidarEmail(int idPersona, string correo)
+        {
+            int result = 0;
+            using (BDRestauranteContext context = new BDRestauranteContext())
+            {
+                if(idPersona == 0)
+                {
+                    result = context.Persona.Where(x => x.Correo.ToUpper().Equals(correo.ToUpper())).Count();
+                }
+                return result;
             }
         }
     }

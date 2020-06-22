@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination'
 
 import { AppComponent } from './app.component';
 import { NavMenuComponent } from './nav-menu/nav-menu.component';
@@ -31,6 +32,8 @@ import { MatenimientoPersonaComponent } from './components/matenimiento-persona/
 import { FormularioPersonaMantenimientoComponent } from './components/formulario-persona-mantenimiento/formulario-persona-mantenimiento.component';
 import { FormularioProductoComponent } from './components/formulario-producto/formulario-producto.component';
 import { ProductosComponent } from './components/productos/productos.component';
+import { UsuariosComponent } from './components/usuarios/usuarios.component';
+import { FormularioUsuarioComponent } from './components/formulario-usuario/formulario-usuario.component'
 
 
 @NgModule({
@@ -54,12 +57,15 @@ import { ProductosComponent } from './components/productos/productos.component';
     FormularioPersonaMantenimientoComponent,
     FormularioProductoComponent,
     ProductosComponent,
+    UsuariosComponent,
+    FormularioUsuarioComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    NgxPaginationModule,
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'filtradoProductoNombre', component: FiltradoProductoNombreComponent },
@@ -69,7 +75,9 @@ import { ProductosComponent } from './components/productos/productos.component';
       { path: 'persona-crear', component: MatenimientoPersonaComponent },
       { path: 'matenimiento-persona/:id', component: FormularioPersonaMantenimientoComponent },
       { path: 'productos', component: ProductosComponent },
-      { path: 'formulario-producto/:id', component: FormularioProductoComponent}
+      { path: 'formulario-producto/:id', component: FormularioProductoComponent },
+      { path: 'usuarios', component: UsuariosComponent },
+      { path: 'usuario-opciones/:id', component: FormularioUsuarioComponent}
     ])
   ],
   providers: [ProductoServices, CategoriaServicio, PersonaService, UsuarioService],

@@ -1,0 +1,56 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>{{titulo}}</h2>
+      <form [formGroup]="usuario" (ngSubmit)="guardar()">
+        <div class="form-group">
+          <label>Id usuario</label>
+          <input type="text" class="form-control" readonly formControlName="idUsuario" />
+        </div>
+        <div class="form-group">
+          <label>Nombre usuario</label>
+          <input type="text" class="form-control" formControlName="nombre" />
+        </div>
+
+        <div class="form-group">
+          <label>Contraseña</label>
+          <input type="password" class="form-control" formControlName="password" required />
+        </div>
+
+        <div class="form-group">
+          <label>Repita contraseña</label>
+          <input type="password" class="form-control" formControlName="passwordConfirm" required />
+        </div>
+
+        <div class="form-group">
+          <label>Persona</label>
+          <select class="form-control" formControlName="idPersona">
+            <option value="">--Seleccione--</option>
+            <option *ngFor="let persona of personas" [value]="persona.idPersona">{{persona.nombreCompleto}}</option>
+          </select>
+        </div>
+
+        <div class="form-group" formControlName="idTipoUsuario">
+          <label>Tipo de usuario</label>
+          <select class="form-control">
+            <option value="">--Seleccione--</option>
+            <option *ngFor="let tipoUsuario of tiposUsuarios" [value]="tipoUsuario.idTipoUsuario">{{tipoUsuario.nombre}}</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <input [disabled]="!usuario.valid" type="submit" class="btn btn-primary mr-1" value="Enviar" />
+          <button [routerLink]="['/usuarios']" type="button" class="btn btn-danger">Regresar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="m-3">
+  <div class="alert alert-danger" *ngIf="!usuario.valid">El formulario aún no es valido</div>
+  <div class="alert alert-primary" *ngIf="usuario.valid">El formulario es valido</div>
+</div>
+
+
+

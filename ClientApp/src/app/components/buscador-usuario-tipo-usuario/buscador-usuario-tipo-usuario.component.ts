@@ -14,10 +14,7 @@ export class BuscadorUsuarioTipoUsuarioComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.usuarioServices.getTipoUsuario().subscribe(rsp => {
-      console.log(rsp);
-      this.tipoUsuario = rsp;
-    });
+    this.usuarioServices.getTipoUsuario().subscribe(rsp => this.tipoUsuario = rsp);
   }
 
   filtrar(tipo) {
