@@ -29,6 +29,8 @@ import { FiltradoUsuarioTipoUsuarioComponent } from './components/filtrado-usuar
 import { TablaUsuarioComponent } from './components/tabla-usuario/tabla-usuario.component';
 import { MatenimientoPersonaComponent } from './components/matenimiento-persona/matenimiento-persona.component';
 import { FormularioPersonaMantenimientoComponent } from './components/formulario-persona-mantenimiento/formulario-persona-mantenimiento.component';
+import { FormularioProductoComponent } from './components/formulario-producto/formulario-producto.component';
+import { ProductosComponent } from './components/productos/productos.component';
 
 
 @NgModule({
@@ -50,6 +52,8 @@ import { FormularioPersonaMantenimientoComponent } from './components/formulario
     TablaUsuarioComponent,
     MatenimientoPersonaComponent,
     FormularioPersonaMantenimientoComponent,
+    FormularioProductoComponent,
+    ProductosComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -63,7 +67,9 @@ import { FormularioPersonaMantenimientoComponent } from './components/formulario
       { path: 'fitradoPersonaNombre', component: FiltardoPersonaNombreComponent},
       { path: 'usuario', component: FiltradoUsuarioTipoUsuarioComponent },
       { path: 'persona-crear', component: MatenimientoPersonaComponent },
-      { path: 'matenimiento-persona/:id', component: FormularioPersonaMantenimientoComponent }
+      { path: 'matenimiento-persona/:id', component: FormularioPersonaMantenimientoComponent },
+      { path: 'productos', component: ProductosComponent },
+      { path: 'formulario-producto/:id', component: FormularioProductoComponent}
     ])
   ],
   providers: [ProductoServices, CategoriaServicio, PersonaService, UsuarioService],

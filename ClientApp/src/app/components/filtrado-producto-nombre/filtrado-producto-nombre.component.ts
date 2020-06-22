@@ -15,7 +15,7 @@ export class FiltradoProductoNombreComponent implements OnInit {
   }
   filtrarDatos(nombre) {
     if (nombre == "") {
-      this.productoService.getProducto().subscribe(data => this.productos = data);
+      this.productoService.getProductos().subscribe(data => this.productos = data);
     } else {
       this.productoService.getProductoPorNombre(nombre).subscribe(data => this.productos = data);
       //console.log(this.productoService.getProductoPorNombre(nombre.value));
@@ -23,6 +23,6 @@ export class FiltradoProductoNombreComponent implements OnInit {
   }
   limpiar(nombre) {
     nombre.value = "";
-    this.productoService.getProducto().subscribe(data => this.productos = data);
+    this.productoService.getProductos().subscribe(data => this.productos = data);
   }
 }

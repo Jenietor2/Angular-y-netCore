@@ -1,0 +1,50 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-12">
+      <h2>{{titulo}}</h2>
+      <form [formGroup]="producto" (ngSubmit)="guardar()">
+        <div class="form-group">
+          <label>Id producto</label>
+          <input type="text" class="form-control" readonly formControlName="idProducto" />
+        </div>
+        <div class="form-group">
+          <label>Nombre</label>
+          <input type="text" class="form-control" formControlName="nombre" />
+        </div>
+        <div class="form-group">
+          <label>Precio</label>
+          <input type="number" min="0" class="form-control" formControlName="precio" />
+        </div>
+        <div class="form-group">
+          <label>Categoria</label>
+          <select formControlName="idCategoria" class="form-control">
+            <option value="">--Seleccione--</option>
+            <option *ngFor="let categoria of categorias" [value]="categoria.idCategoria">{{categoria.nombre}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Marca</label>
+          <select formControlName="idMarca" class="form-control">
+            <option value="">--Seleccione--</option>
+            <option *ngFor="let marca of marcas" [value]="marca.idMarca">{{marca.nombre}}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Stock</label>
+          <input type="number" min="0" class="form-control" formControlName="stock" />
+        </div>
+        <div class="form-group">
+          <input [disabled]="!producto.valid" type="submit" class="btn btn-primary mr-1" value="Enviar" />
+          <button [routerLink]="['/productos']" type="button" class="btn btn-danger">Regresar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="m-3">
+  <div class="alert alert-danger" *ngIf="!producto.valid">El formulario aún no es valido</div>
+  <div class="alert alert-primary" *ngIf="producto.valid">El formulario es valido</div>
+</div>
+
+

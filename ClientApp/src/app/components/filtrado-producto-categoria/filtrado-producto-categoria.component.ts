@@ -16,7 +16,7 @@ export class FiltradoProductoCategoriaComponent implements OnInit {
 
   buscar(categoria) {
     if (categoria.value == "") {
-      this.productoServices.getProducto().subscribe(rsp => this.productos = rsp);
+      this.productoServices.getProductos().subscribe(rsp => this.productos = rsp);
     } else {
       this.productoServices.getProductoPorCategoria(categoria.value).subscribe(resp => this.productos = resp);
     }
@@ -25,6 +25,6 @@ export class FiltradoProductoCategoriaComponent implements OnInit {
 
   limpiar(categoria) {
     categoria.value = "";
-    this.productoServices.getProducto().subscribe(rsp => this.productos = rsp);
+    this.productoServices.getProductos().subscribe(rsp => this.productos = rsp);
   }
 }

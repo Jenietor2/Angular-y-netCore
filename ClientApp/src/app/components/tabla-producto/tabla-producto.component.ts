@@ -7,15 +7,19 @@ import { ProductoServices } from '../../Servicios/producto.Services';
 })
 
 export class TablaProductoComponent implements OnInit {
- @Input() productos: any;
+  @Input() productos: any;
+  @Input() isMantenimiento = false;
   cabeceras: string[] = ["Id producto", "Nombre", "Precio", "Stock", "Categoria"];
   constructor(private productoServicio: ProductoServices) {
   }
 
   ngOnInit() {
-    this.productoServicio.getProducto().subscribe(data => {
-    this.productos = data
-      console.log(data); });
+    this.productoServicio.getProductos().subscribe(data => this.productos = data);
   }
 
+  eliminarProducto(idProducto) {
+    this.productoServicio.eliminarProducto(idProducto).subscribe(rsp => {
+      this.productoServicio.getProductos().subscribe(data => this.productos = data);
+    });
+  }
 }

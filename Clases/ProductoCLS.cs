@@ -12,5 +12,7 @@ namespace Restaurante.Clases
         public decimal Precio { get; set; }
         public int Stock { get; set; }
         public string NombreCategoria { get; set; }
+        public int IdMarca { get; set; }
+        public int idCategoria { get; set; }
     }
 }
