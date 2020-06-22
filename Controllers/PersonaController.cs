@@ -175,5 +175,27 @@ namespace Restaurante.Controllers
                 return result;
             }
         }
+        [HttpGet("ListarPersonasSinUsuario")]
+        public IEnumerable<PersonaCLS> ListarPersonasSinUsuario()
+        {
+            using (BDRestauranteContext context = new BDRestauranteContext())
+            {
+                List<PersonaCLS> listPersonasSinUsuario = (from persona in context.Persona
+                                                           where persona.Bhabilitado == 1
+                                                           && persona.Btieneusuario == 0
+                                                           select new PersonaCLS
+                                                           {
+                                                               IdPersona = persona.Iidpersona,
+                                                               Nombre = persona.Nombre,
+                                                               PrimerApellido = persona.Appaterno,
+                                                               SegundoApellido = persona.Apmaterno,
+                                                               Telefono = persona.Telefono,
+                                                               Correo = persona.Correo,
+                                                               FechaNacimiento = (DateTime)persona.Fechanacimiento,
+                                                               NombreCompleto = persona.Nombre + " " + persona.Appaterno + " " + persona.Apmaterno
+                                                           }).ToList();
+                return listPersonasSinUsuario;
+            }
+        }
     }
 }

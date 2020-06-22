@@ -25,4 +25,7 @@ export class PersonaService {
   validarCorreo(idPersona: number, correo: string) {
     return this.http.get(this.urlBase + "api/persona/ValidarEmail/" + idPersona + "/" + correo);
   }
+  getPersonasSinUsuario() {
+    return this.http.get(this.urlBase + "api/persona/ListarPersonasSinUsuario");
+  }
 }

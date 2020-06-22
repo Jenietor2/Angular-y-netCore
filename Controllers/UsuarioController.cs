@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Restaurante.Controllers
 {
+
+    [Route("Api/[Controller]")]
+    [ApiController]
     public class UsuarioController : Controller
     {
         public IActionResult Index()
@@ -16,8 +19,8 @@ namespace Restaurante.Controllers
             return View();
         }
 
-        [HttpGet]
-        [Route("api/Usuario/ListarTiposUsuarios")]
+        [HttpGet("ListarTiposUsuarios")]
+        //[Route("api/Usuario/ListarTiposUsuarios")]
         public IEnumerable<TipoUsuarioCLS> ListarTiposUsuarios()
         {
             using (BDRestauranteContext context = new BDRestauranteContext())
@@ -35,8 +38,8 @@ namespace Restaurante.Controllers
 
         }
 
-        [HttpGet]
-        [Route("api/Usuario/ListarUsuarios")]
+        [HttpGet("ListarUsuarios")]
+        //[Route("api/Usuario/ListarUsuarios")]
         public IEnumerable<UsuarioCLS> ListarUsuarios()
         {
             using (BDRestauranteContext context = new BDRestauranteContext())
@@ -59,8 +62,8 @@ namespace Restaurante.Controllers
 
         }
 
-        [HttpGet]
-        [Route("api/usuario/FiltrarUsuarioXTipo/{idTipoUsuario?}")]
+        [HttpGet("FiltrarUsuarioXTipo/{idTipoUsuario?}")]
+        //[Route("api/usuario/FiltrarUsuarioXTipo/{idTipoUsuario?}")]
         public IEnumerable<UsuarioCLS> FiltrarUsuarioXTipo(int idTipoUsuario = 1)
         {
             using (BDRestauranteContext context = new BDRestauranteContext())
@@ -80,6 +83,23 @@ namespace Restaurante.Controllers
                                                       TipoUsuario = tipoUsuario.Nombre
                                                   }).ToList();
                 return listaUsuarios;
+            }
+        }
+        [HttpGet("ValidarUsuario/{idUsuario}/{nombreUsuario}")]
+        public int ValidarUsuario(int idUsuario, string nombreUsuario)
+        {
+            int result = 0;
+            using (BDRestauranteContext context = new BDRestauranteContext())
+            {
+                if(idUsuario == 0)
+                {
+                    result = context.Usuario.Where(x => x.Nombreusuario.ToUpper().Equals(nombreUsuario.ToUpper())).Count();
+                }
+                else
+                {
+                    result = context.Usuario.Where(x => x.Iidusuario != idUsuario && x.Nombreusuario.ToUpper().Equals(nombreUsuario.ToUpper())).Count();
+                }
+                return result;
             }
         }
     }

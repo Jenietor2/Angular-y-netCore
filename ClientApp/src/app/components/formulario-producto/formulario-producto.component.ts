@@ -42,15 +42,9 @@ export class FormularioProductoComponent implements OnInit {
       }
     });
 
-    this.productoServices.getMarcas().subscribe(rsp => {
-      console.log(rsp);
-      this.marcas = rsp;
-    });
+    this.productoServices.getMarcas().subscribe(rsp => this.marcas = rsp);
 
-    this.categoriaServices.getCategoria().subscribe(rsp => {
-      console.log(rsp);
-      this.categorias = rsp;
-    });
+    this.categoriaServices.getCategoria().subscribe(rsp => this.categorias = rsp);
   }
 editarProducto(id) {
   this.productoServices.getProducto(id).subscribe(rsp => {

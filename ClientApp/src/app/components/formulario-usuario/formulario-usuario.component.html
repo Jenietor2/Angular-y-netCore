@@ -10,6 +10,9 @@
         <div class="form-group">
           <label>Nombre usuario</label>
           <input type="text" class="form-control" formControlName="nombre" />
+          <div class="text-danger" *ngIf="usuario.controls['nombre'].errors?.userExist">
+            <p>El nombre de usuario ya existe</p>
+          </div>
         </div>
 
         <div class="form-group">
@@ -20,19 +23,22 @@
         <div class="form-group">
           <label>Repita contraseña</label>
           <input type="password" class="form-control" formControlName="passwordConfirm" required />
+          <div class="text-danger" *ngIf="usuario.controls['passwordConfirm'].errors?.noConfirm">
+            <p>Las contraseñas no coinciden</p>
+          </div>
         </div>
 
         <div class="form-group">
           <label>Persona</label>
           <select class="form-control" formControlName="idPersona">
             <option value="">--Seleccione--</option>
-            <option *ngFor="let persona of personas" [value]="persona.idPersona">{{persona.nombreCompleto}}</option>
+            <option *ngFor="let persona of personasSinUsuario" [value]="persona.idPersona">{{persona.nombreCompleto}}</option>
           </select>
         </div>
 
-        <div class="form-group" formControlName="idTipoUsuario">
+        <div class="form-group">
           <label>Tipo de usuario</label>
-          <select class="form-control">
+          <select class="form-control" formControlName="idTipoUsuario">
             <option value="">--Seleccione--</option>
             <option *ngFor="let tipoUsuario of tiposUsuarios" [value]="tipoUsuario.idTipoUsuario">{{tipoUsuario.nombre}}</option>
           </select>
