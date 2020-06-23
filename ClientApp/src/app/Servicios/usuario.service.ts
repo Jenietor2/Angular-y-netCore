@@ -19,4 +19,13 @@ export class UsuarioService {
   validarNombreUsuario(idUsuario, nombreUsuario) {
     return this.http.get(this.url + "api/usuario/ValidarUsuario/" + idUsuario+ "/" + nombreUsuario);
   }
+  getUsuario(idUsuario) {
+    return this.http.get(this.url + "api/usuario/EditarUsuarioPorId/" + idUsuario);
+  }
+  insertarUsuario(usuario) {
+    return this.http.post(this.url + "api/usuario/InsertarUsuario", usuario);
+  }
+  eliminarUsuario(idUsuario) {
+    return this.http.get(this.url + "api/usuario/EliminarUsuario/" + idUsuario);
+  }
 }

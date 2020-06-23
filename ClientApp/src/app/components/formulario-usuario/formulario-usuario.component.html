@@ -1,6 +1,9 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
+      <div class="col-md-8">
+        <div class="alert alert-danger" *ngIf="error">Lo sentimos no fue posible insertar la acción</div>
+      </div>
       <h2>{{titulo}}</h2>
       <form [formGroup]="usuario" (ngSubmit)="guardar()">
         <div class="form-group">
@@ -9,18 +12,18 @@
         </div>
         <div class="form-group">
           <label>Nombre usuario</label>
-          <input type="text" class="form-control" formControlName="nombre" />
-          <div class="text-danger" *ngIf="usuario.controls['nombre'].errors?.userExist">
+          <input type="text" class="form-control" formControlName="nombreUsuario" />
+          <div class="text-danger" *ngIf="usuario.controls['nombreUsuario'].errors?.userExist">
             <p>El nombre de usuario ya existe</p>
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="mostrar">
           <label>Contraseña</label>
           <input type="password" class="form-control" formControlName="password" required />
         </div>
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="mostrar">
           <label>Repita contraseña</label>
           <input type="password" class="form-control" formControlName="passwordConfirm" required />
           <div class="text-danger" *ngIf="usuario.controls['passwordConfirm'].errors?.noConfirm">
@@ -28,7 +31,7 @@
           </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" *ngIf="mostrar">
           <label>Persona</label>
           <select class="form-control" formControlName="idPersona">
             <option value="">--Seleccione--</option>
