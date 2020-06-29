@@ -9,6 +9,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Transactions;
 using System.Security.Cryptography;
 using System.Text;
+using Microsoft.AspNetCore.Http;
+using Pagina = Restaurante.Clases.Pagina;
 
 namespace Restaurante.Controllers
 {
@@ -183,6 +185,94 @@ namespace Restaurante.Controllers
                 }
 
             }
+        }
+
+        [HttpPost("Login")]
+        public UsuarioCLS Login([FromBody] UsuarioCLS usuario)
+        {
+            int result = 0;
+            UsuarioCLS usuarioReturn = new UsuarioCLS();
+            using (BDRestauranteContext context = new BDRestauranteContext())
+            {
+                //Se encripta la contraseña recibida 
+                
+                SHA256Managed sha = new SHA256Managed();
+                byte[] dataNocifrada = Encoding.Default.GetBytes(usuario.password);
+                byte[] dataCifrada = sha.ComputeHash(dataNocifrada);
+                string passwordEncriptado = BitConverter.ToString(dataCifrada).Replace("-", "");
+                result = context.Usuario.Where(x => x.Nombreusuario.ToLower().Equals(usuario.NombreUsuario.ToLower()) && x.Contra.Equals(passwordEncriptado)).Count();
+                if(result == 1)
+                {
+                    Usuario user = context.Usuario.Where(x => x.Nombreusuario.ToLower().Equals(usuario.NombreUsuario.ToLower()) && x.Contra.Equals(passwordEncriptado)).FirstOrDefault();
+                    HttpContext.Session.SetString("usuario", user.Iidusuario.ToString());
+                    HttpContext.Session.SetString("tipoUsuario", user.Iidtipousuario.ToString());
+                    usuarioReturn.IdUsuario = user.Iidusuario;
+                    usuarioReturn.NombreUsuario = user.Nombreusuario;
+                }else
+                {
+                    usuarioReturn.IdUsuario = 0;
+                    usuarioReturn.NombreUsuario = "";
+                }
+            }
+            return usuarioReturn;
+        }
+
+        [HttpGet("GetSession")]
+        public SeguridadCLS GetSession()
+        {
+            SeguridadCLS seguridad = new SeguridadCLS();
+            string session = HttpContext.Session.GetString("usuario");
+            if (session == null)
+            {
+                seguridad.Valor = "";
+            }
+            else
+            {
+                seguridad.Valor = HttpContext.Session.GetString("usuario");
+            }
+            return seguridad;
+        }
+
+        [HttpGet("CerrarSesion")]
+        public SeguridadCLS CerrarSesion()
+        {
+            SeguridadCLS seguridadSesion = new SeguridadCLS();
+            try
+            {
+                HttpContext.Session.Remove("usuario");
+                HttpContext.Session.Remove("tipoUsuario");
+                seguridadSesion.Valor = "ok";
+            }
+            catch (Exception)
+            {
+                seguridadSesion.Valor = "";
+            }
+            return seguridadSesion;
+
+        }
+
+        [HttpGet("ListarPagina")]
+        public List<Pagina> ListarPagina()
+        {
+            List<Pagina> lstPaginas = new List<Pagina>();
+            int idTipoUsuario = int.Parse(HttpContext.Session.GetString("tipoUsuario"));
+            using (BDRestauranteContext context = new BDRestauranteContext())
+            {
+                lstPaginas = (from paginaTipo in context.PaginaTipoUsuario
+                              join pagina in context.Pagina
+                              on paginaTipo.Iidpagina equals pagina.Iidpagina
+                              where paginaTipo.Bhabilitado == 1
+                              && paginaTipo.Iidtipousuario == idTipoUsuario
+                              select new Pagina
+                              {
+                                  IdPagina = pagina.Iidpagina,
+                                  Mensaje = pagina.Mensaje,
+                                  Accion = pagina.Accion,
+                                  Habilitado = (int)pagina.Bhabilitado
+                              }).ToList();
+                return lstPaginas;
+            }
+
         }
     }
 }

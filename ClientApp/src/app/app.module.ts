@@ -33,7 +33,11 @@ import { FormularioPersonaMantenimientoComponent } from './components/formulario
 import { FormularioProductoComponent } from './components/formulario-producto/formulario-producto.component';
 import { ProductosComponent } from './components/productos/productos.component';
 import { UsuariosComponent } from './components/usuarios/usuarios.component';
-import { FormularioUsuarioComponent } from './components/formulario-usuario/formulario-usuario.component'
+import { FormularioUsuarioComponent } from './components/formulario-usuario/formulario-usuario.component';
+import { LoginComponent } from './components/login/login.component';
+import { PaginaErrorLoginComponent } from './components/pagina-error-login/pagina-error-login.component';
+import { PermisoErrorPaginaComponent } from './components/permiso-error-pagina/permiso-error-pagina.component'
+import { SeguridadGuard } from './components/guards/seguridad.guard';
 
 
 @NgModule({
@@ -59,6 +63,9 @@ import { FormularioUsuarioComponent } from './components/formulario-usuario/form
     ProductosComponent,
     UsuariosComponent,
     FormularioUsuarioComponent,
+    LoginComponent,
+    PaginaErrorLoginComponent,
+    PermisoErrorPaginaComponent,
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -67,20 +74,23 @@ import { FormularioUsuarioComponent } from './components/formulario-usuario/form
     ReactiveFormsModule,
     NgxPaginationModule,
     RouterModule.forRoot([
-      { path: '', component: HomeComponent, pathMatch: 'full' },
-      { path: 'filtradoProductoNombre', component: FiltradoProductoNombreComponent },
-      { path: 'filtradoProductoCategoria', component: FiltradoProductoCategoriaComponent },
-      { path: 'fitradoPersonaNombre', component: FiltardoPersonaNombreComponent},
+      { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [SeguridadGuard] },
+      { path: 'filtradoProductoNombre', component: FiltradoProductoNombreComponent, canActivate: [SeguridadGuard]  },
+      { path: 'filtradoProductoCategoria', component: FiltradoProductoCategoriaComponent, canActivate: [SeguridadGuard]  },
+      { path: 'fitradoPersonaNombre', component: FiltardoPersonaNombreComponent, canActivate: [SeguridadGuard] },
       { path: 'usuario', component: FiltradoUsuarioTipoUsuarioComponent },
       { path: 'persona-crear', component: MatenimientoPersonaComponent },
       { path: 'matenimiento-persona/:id', component: FormularioPersonaMantenimientoComponent },
       { path: 'productos', component: ProductosComponent },
       { path: 'formulario-producto/:id', component: FormularioProductoComponent },
       { path: 'usuarios', component: UsuariosComponent },
-      { path: 'usuario-opciones/:id', component: FormularioUsuarioComponent}
+      { path: 'usuario-opciones/:id', component: FormularioUsuarioComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'pagina-error', component: PaginaErrorLoginComponent },
+      { path: 'pagina-error-permiso', component: PermisoErrorPaginaComponent }
     ])
   ],
-  providers: [ProductoServices, CategoriaServicio, PersonaService, UsuarioService],
+  providers: [ProductoServices, CategoriaServicio, PersonaService, UsuarioService, SeguridadGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

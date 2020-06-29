@@ -28,4 +28,16 @@ export class UsuarioService {
   eliminarUsuario(idUsuario) {
     return this.http.get(this.url + "api/usuario/EliminarUsuario/" + idUsuario);
   }
+  login(usuario) {
+    return this.http.post(this.url + "api/usuario/Login", usuario);
+  }
+  getSession() {
+    return this.http.get(this.url + "api/usuario/GetSession");
+  }
+  cerrarSesion() {
+    return this.http.get(this.url + "api/usuario/CerrarSesion");
+  }
+  listarPaginas() {
+    return this.http.get(this.url + "api/usuario/ListarPagina");
+  }
 }
